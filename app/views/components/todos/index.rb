@@ -6,12 +6,12 @@ module Components
       param :uncomplete_todo
 
       def render
-        section class: "todoapp" do
-          header class: "header" do
+        section(class: "todoapp") do
+          header(class: "header") do
             h1 do
               "Todos"
             end
-            TopBar()
+            #TopBar()
           end
 
           section(class: "main", style: {display: "block"}) do
