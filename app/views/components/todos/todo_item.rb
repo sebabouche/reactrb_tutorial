@@ -3,7 +3,7 @@ module Components
     class TodoItem < React::Component::Base
 
       param :todo, type: Todo
-      define_state editing: false
+
       # param :my_param
       # param param_with_default: "default value"
       # param :param_with_default2, default: "default value" # alternative syntax
@@ -42,19 +42,18 @@ module Components
         # cleanup any thing (i.e. timers) before component is destroyed
       end
 
+      def handle_blur
+        state.editing! false
+      end
+
+      def handle_enter
+        state.editing! false
+      end
+
       def render
         li(class:"#{params.todo.complete ? "completed" : ""} #{state.editing ? "editing" : ""}") do
           if state.editing
-            input(class: "edit", defaultValue: params.todo.title).on(:blur) do
-              state.editing! false if state.editing
-            end.on(:change) do |e|
-              params.todo.title = e.target.value
-            end.on(:keyDown) do |e|
-              if e.key_code == 13
-                params.todo.save
-                state.editing! false
-              end
-            end
+            TitleEdit todo: params.todo, on_blur: -> {handle_blur}, on_enter: -> {handle_enter}, css_class: "edit"
           else
             div class: "view" do
               input(type: "checkbox", (params.todo.complete ? :defaultChecked : :unchecked) => true, class: "toggle").on(:click) do

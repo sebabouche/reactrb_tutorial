@@ -1,17 +1,1 @@
-<section class="todoapp">
-  <header class="header">
-    <h1>todos</h1>
-    <h2 class="new_todo"><%= link_to 'New Todo', new_todo_path %></h2>
-    <!-- <input class="new-todo" placeholder="What needs to be done?" autofocus=""> -->
-  </header>
-  <section class="main" style="display: block;">
-    <!-- <input class="toggle-all" type="checkbox"> -->
-    <label for="toggle-all">Mark all as complete</label>
-    <ul class="todo-list">
-      <% @todos.each do |todo| %>
-        <%= react_component "TodoItem", todo: todo %>
-      <% end %>
-    </ul>
-  </section>
-  <%= react_component "Footer", scope: @scope, uncomplete_todo: @uncomplete_todo %>
-</section>
+<%= react_component "Index", scope: @scope, uncomplete_todo: @uncomplete_todo, todos: @todos %>
